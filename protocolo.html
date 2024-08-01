@@ -12,7 +12,7 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             background: #fff;
             padding: 20px;
@@ -21,6 +21,19 @@
         }
         h1 {
             text-align: center;
+        }
+        .banner {
+            width: 100%;
+            height: 200px;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-image: url('https://via.placeholder.com/800x200'); /* Placeholder image */
+            background-size: cover;
+            background-position: center;
         }
         .status {
             margin: 20px 0;
@@ -39,6 +52,9 @@
 <body>
     <div class="container">
         <h1>Serviço de Protocolo</h1>
+        <div class="banner">
+            <h2>Banner</h2>
+        </div>
         <form id="uploadForm">
             <div class="file-input">
                 <label for="file">Anexar Documento:</label>
@@ -71,6 +87,13 @@
                 }, 3000);
             }, 2000);
         });
+
+        // Função para enviar o documento para o Google Drive
+        async function sendDocumentToDrive(file) {
+            // Adicione seu código de integração com o Google Drive aqui
+            // Exemplo de uso da API do Google Drive para enviar o arquivo
+            // Veja a documentação da API do Google Drive para detalhes: https://developers.google.com/drive/api/v3/reference/files/create
+        }
     </script>
 </body>
 </html>
