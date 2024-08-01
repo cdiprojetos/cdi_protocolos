@@ -22,18 +22,14 @@
         h1 {
             text-align: center;
         }
-        {
+        .banner {
             width: 100%;
             height: 200px;
-            background-color: #ccc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            background-image: url('https://github.com/cdiprojetos/cdi_protocolos/blob/main/Imagem1.jpg?raw=true'); /* Placeholder image */
+            background-image: url('https://github.com/cdiprojetos/cdi_protocolos/blob/main/Imagem1.jpg?raw=true');
             background-size: cover;
             background-position: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -54,6 +50,9 @@
         .submit-btn {
             display: flex;
             justify-content: center;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -90,10 +89,7 @@
                 <label for="file">Anexar Documento:</label>
                 <input type="file" id="file" name="file" required>
             </div>
-            <div class="form-group">
-                <label for="directory">Diretório para Salvamento:</label>
-                <input type="text" id="directory" name="directory" placeholder="https://drive.google.com/drive/folders/11Ei0RvcDBf_CnA2R81-58LaDkYLauZ5W" required>
-            </div>
+            <input type="hidden" id="directory" name="directory" value="https://drive.google.com/drive/folders/11Ei0RvcDBf_CnA2R81-58LaDkYLauZ5W">
             <div class="submit-btn">
                 <button type="submit">Enviar Documento</button>
             </div>
@@ -117,11 +113,11 @@
             const observations = document.getElementById('observations').value;
             const directory = document.getElementById('directory').value;
 
-            if (file) {
+            if (file && name && date && docType && pages) {
                 alert(`Documento "${file.name}" enviado com sucesso!\n\nNome do Remetente: ${name}\nData: ${date}\nTipo de Documento: ${docType}\nNúmero de Páginas: ${pages}\nObservações: ${observations}\nDiretório: ${directory}`);
                 // Aqui você pode adicionar o código para enviar o documento para o Google Drive
             } else {
-                alert('Por favor, selecione um documento para enviar.');
+                alert('Por favor, preencha todos os campos obrigatórios e selecione um documento.');
             }
         });
 
