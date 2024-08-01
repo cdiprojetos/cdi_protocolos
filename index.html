@@ -51,8 +51,9 @@
             display: flex;
             justify-content: center;
         }
-        .hidden {
-            display: none;
+        .status {
+            margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
@@ -94,16 +95,15 @@
                 <button type="submit">Enviar Documento</button>
             </div>
         </form>
-        <div id="status" class="status">
-            <p>Status do Documento: <span id="documentStatus">Aguardando envio...</span></p>
-        </div>
+        <div id="status" class="status"></div>
     </div>
     <script>
         const uploadForm = document.getElementById('uploadForm');
-        const documentStatus = document.getElementById('documentStatus');
+        const statusDiv = document.getElementById('status');
 
-        uploadForm.addEventListener('submit', function(event) {
+        uploadForm.addEventListener('submit', async function(event) {
             event.preventDefault();
+
             const fileInput = document.getElementById('file');
             const file = fileInput.files[0];
             const name = document.getElementById('name').value;
@@ -114,17 +114,31 @@
             const directory = document.getElementById('directory').value;
 
             if (file && name && date && docType && pages) {
-                alert(`Documento "${file.name}" enviado com sucesso!\n\nNome do Remetente: ${name}\nData: ${date}\nTipo de Documento: ${docType}\nNúmero de Páginas: ${pages}\nObservações: ${observations}\nDiretório: ${directory}`);
-                // Aqui você pode adicionar o código para enviar o documento para o Google Drive
+                try {
+                    // Exemplo de envio do documento (a implementação real deve usar a API do Google Drive)
+                    await sendDocumentToDrive(file, directory);
+
+                    // Atualiza o status do documento
+                    statusDiv.innerHTML = `
+                        <p>Documento "${file.name}" enviado com sucesso!</p>
+                        <p>Status: Aguardando recebimento...</p>
+                    `;
+
+                    // Limpar o formulário
+                    uploadForm.reset();
+                } catch (error) {
+                    statusDiv.innerHTML = `<p>Erro ao enviar o documento. Tente novamente.</p>`;
+                }
             } else {
                 alert('Por favor, preencha todos os campos obrigatórios e selecione um documento.');
             }
         });
 
-        // Função para enviar o documento para o Google Drive
+        // Função fictícia para enviar o documento para o Google Drive
         async function sendDocumentToDrive(file, directory) {
             // Adicione seu código de integração com o Google Drive aqui
             // Veja a documentação da API do Google Drive para detalhes: https://developers.google.com/drive/api/v3/reference/files/create
+            console.log(`Documento "${file.name}" deveria ser enviado para ${directory}`);
         }
     </script>
 </body>
