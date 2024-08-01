@@ -3,97 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serviço de Protocolo</title>
+    <title>CDI PROTOCOLO</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
         }
         .banner {
             width: 100%;
-            height: 200px;
-            background-color: #ccc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            max-height: 300px;
+            object-fit: cover;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+        }
+        .link-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 25px;
+            font-size: 16px;
+            color: white;
+            background-color: #007ee5;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .link-button:hover {
+            background-color: #005bb5;
+        }
+        .steps {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .steps h2 {
+            font-size: 24px;
             margin-bottom: 20px;
-            border-radius: 8px;
-            background-image: url('https://via.placeholder.com/800x200'); /* Placeholder image */
-            background-size: cover;
-            background-position: center;
         }
-        .status {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .steps ol {
+            list-style-type: decimal;
+            padding-left: 20px;
         }
-        .status span {
-            font-weight: bold;
-        }
-        .file-input {
+        .steps ol li {
             margin-bottom: 10px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
+    <img src="https://github.com/AcervoCAArq-UFF/Acervo-CAArq-UFF/blob/main/archive-1850170_1280.jpg?raw=true" alt="Banner do CDI PROTOCOLO" class="banner">
     <div class="container">
-        <h1>Serviço de Protocolo</h1>
-        <div class="banner">
-            <h2>Banner</h2>
+        <h1>CDI PROTOCOLO</h1>
+        <div class="steps">
+            <h2>Etapas de Aprovação</h2>
+            <ol>
+                <li>Recepção do Documento</li>
+                <li>Verificação de Conformidade</li>
+                <li>Aprovação Inicial</li>
+                <li>Revisão Final</li>
+                <li>Aprovação e Arquivamento</li>
+            </ol>
         </div>
-        <form id="uploadForm">
-            <div class="file-input">
-                <label for="file">Anexar Documento:</label>
-                <input type="file" id="file" name="file" required>
-            </div>
-            <button type="submit">Enviar Documento</button>
-        </form>
-        <div id="status" class="status">
-            <p>Status do Documento: <span id="documentStatus">Aguardando envio...</span></p>
-        </div>
+        <a href="https://www.dropbox.com/request/68cZmodFGbuVqeCoF5Lh" class="link-button">Enviar Documento</a>
     </div>
-    <script>
-        const uploadForm = document.getElementById('uploadForm');
-        const documentStatus = document.getElementById('documentStatus');
-
-        uploadForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            documentStatus.textContent = 'Documento enviado e aguardando recebimento...';
-
-            // Simula mudança de status após alguns segundos
-            setTimeout(() => {
-                documentStatus.textContent = 'Documento recebido e aguardando análise...';
-                setTimeout(() => {
-                    documentStatus.textContent = 'Documento em análise...';
-                    // Simulação de análise concluída após mais alguns segundos
-                    setTimeout(() => {
-                        const isApproved = Math.random() > 0.5;
-                        documentStatus.textContent = isApproved ? 'Documento aprovado!' : 'Documento rejeitado!';
-                    }, 3000);
-                }, 3000);
-            }, 2000);
-        });
-
-        // Função para enviar o documento para o Google Drive
-        async function sendDocumentToDrive(file) {
-            // Adicione seu código de integração com o Google Drive aqui
-            // Exemplo de uso da API do Google Drive para enviar o arquivo
-            // Veja a documentação da API do Google Drive para detalhes: https://developers.google.com/drive/api/v3/reference/files/create
-        }
-    </script>
 </body>
 </html>
