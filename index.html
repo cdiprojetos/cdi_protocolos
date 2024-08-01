@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDI PROTOCOLO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .banner {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #007ee5;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .step-description {
+            text-align: left;
+        }
+        .upload-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 15px 25px;
+            font-size: 16px;
+            color: white;
+            background-color: #007ee5;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .upload-button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://github.com/cdiprojetos/cdi_protocolos/blob/main/Imagem1.jpg?raw=true" alt="Banner do CDI PROTOCOLO" class="banner">
+    <div class="container">
+        <h1>CDI PROTOCOLO</h1>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-description">
+                <h2>Revisão Inicial</h2>
+                <p>O documento será revisado inicialmente pelo comitê de revisão.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-description">
+                <h2>Aprovação Técnica</h2>
+                <p>O documento será avaliado pela equipe técnica para verificação de conformidade.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-description">
+                <h2>Validação Final</h2>
+                <p>O documento será validado pela direção para aprovação final.</p>
+            </div>
+        </div>
+        <a href="https://drive.google.com/drive/folders/11Ei0RvcDBf_CnA2R81-58LaDkYLauZ5W?usp=drive_link" class="upload-button">Enviar Documento</a>
+    </div>
+</body>
+</html>
