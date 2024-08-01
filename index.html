@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envio de Documentos</title>
+    <title>CDI PROTOCOLO</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,16 +35,21 @@
             background-size: cover;
             background-position: center;
         }
-        .file-input {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
+        .form-group {
+            margin-bottom: 15px;
         }
-        .file-input label {
-            margin-right: 10px;
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
         }
-        .file-input input[type="file"] {
-            display: inline-block;
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group textarea {
+            resize: vertical;
         }
         .submit-btn {
             display: flex;
@@ -54,34 +59,77 @@
 </head>
 <body>
     <div class="container">
-        <h1>Envio de Documentos</h1>
-        <div class="banner">
-            <h2>Banner</h2>
-        </div>
+        <h1>CDI PROTOCOLO</h1>
+        <div class="banner"></div>
         <form id="uploadForm">
-            <div class="file-input">
+            <div class="form-group">
+                <label for="name">Nome do Remetente:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Data (dd/mm/aaaa):</label>
+                <input type="text" id="date" name="date" placeholder="dd/mm/aaaa" required>
+            </div>
+            <div class="form-group">
+                <label for="docType">Tipo de Documento:</label>
+                <select id="docType" name="docType" required>
+                    <option value="">Selecione</option>
+                    <option value="original">Original</option>
+                    <option value="copia">Cópia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pages">Número de Páginas:</label>
+                <input type="number" id="pages" name="pages" required>
+            </div>
+            <div class="form-group">
+                <label for="observations">Observações:</label>
+                <textarea id="observations" name="observations" rows="4"></textarea>
+            </div>
+            <div class="form-group">
                 <label for="file">Anexar Documento:</label>
                 <input type="file" id="file" name="file" required>
+            </div>
+            <div class="form-group">
+                <label for="directory">Diretório para Salvamento:</label>
+                <input type="text" id="directory" name="directory" placeholder="https://drive.google.com/drive/folders/11Ei0RvcDBf_CnA2R81-58LaDkYLauZ5W" required>
             </div>
             <div class="submit-btn">
                 <button type="submit">Enviar Documento</button>
             </div>
         </form>
+        <div id="status" class="status">
+            <p>Status do Documento: <span id="documentStatus">Aguardando envio...</span></p>
+        </div>
     </div>
     <script>
         const uploadForm = document.getElementById('uploadForm');
+        const documentStatus = document.getElementById('documentStatus');
 
         uploadForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const fileInput = document.getElementById('file');
             const file = fileInput.files[0];
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const docType = document.getElementById('docType').value;
+            const pages = document.getElementById('pages').value;
+            const observations = document.getElementById('observations').value;
+            const directory = document.getElementById('directory').value;
+
             if (file) {
-                alert(`Documento "${file.name}" enviado com sucesso!`);
+                alert(`Documento "${file.name}" enviado com sucesso!\n\nNome do Remetente: ${name}\nData: ${date}\nTipo de Documento: ${docType}\nNúmero de Páginas: ${pages}\nObservações: ${observations}\nDiretório: ${directory}`);
                 // Aqui você pode adicionar o código para enviar o documento para o Google Drive
             } else {
                 alert('Por favor, selecione um documento para enviar.');
             }
         });
+
+        // Função para enviar o documento para o Google Drive
+        async function sendDocumentToDrive(file, directory) {
+            // Adicione seu código de integração com o Google Drive aqui
+            // Veja a documentação da API do Google Drive para detalhes: https://developers.google.com/drive/api/v3/reference/files/create
+        }
     </script>
 </body>
 </html>
