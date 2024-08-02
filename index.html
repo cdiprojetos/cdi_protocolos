@@ -72,6 +72,16 @@
         .submit-btn button:hover {
             background-color: #003399;
         }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #e0e0e0;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -115,12 +125,23 @@
                 <button type="submit">Enviar Documento</button>
             </div>
         </form>
-        <div id="status" class="status"></div>
+        <div id="status" class="status hidden">
+            <p>Status do Documento: <span id="documentStatus">Aguardando envio...</span></p>
+        </div>
     </div>
 
     <script>
         // Substitua o link abaixo pelo link da imagem do banner desejada
-        document.getElementById('bannerImage').style.backgroundImage = "url('LINK_DA_IMAGEM_DO_BANNER')";
+        document.getElementById('bannerImage').style.backgroundImage = "url('https://github.com/cdiprojetos/cdi_protocolos/blob/main/Imagem1.jpg?raw=true')";
+
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Aqui você pode adicionar a lógica de envio do formulário e atualização de status
+            document.getElementById('status').classList.remove('hidden');
+            document.getElementById('documentStatus').textContent = 'Documento enviado e aguardando recebimento';
+            // Limpar campos após envio
+            document.getElementById('uploadForm').reset();
+        });
     </script>
 </body>
 </html>
