@@ -3,145 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CDI PROTOCOLO</title>
+    <title>Protocolo de Documentos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background: #f0f0f0;
-            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .header {
-            background-color: #0044cc;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
             background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
         }
-        .banner {
-            width: 100%;
-            height: 150px;
-            background-color: #ddd;
+
+        .upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            text-align: center;
             border-radius: 5px;
+            text-decoration: none;
             margin-bottom: 20px;
         }
-        .form-group {
-            margin-bottom: 15px;
+
+        .upload-button:hover {
+            background-color: #0056b3;
         }
-        .form-group label {
-            display: block;
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
             margin-bottom: 5px;
             font-weight: bold;
         }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+
+        input, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
-        .form-group textarea {
+
+        textarea {
             resize: vertical;
+            min-height: 100px;
         }
-        .submit-btn {
-            text-align: right;
-        }
-        .submit-btn button {
-            background-color: #0044cc;
-            color: #fff;
-            border: none;
+
+        button {
             padding: 10px 20px;
             font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        .submit-btn button:hover {
-            background-color: #003399;
-        }
-        .status {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
             border-radius: 5px;
-            background: #e0e0e0;
+            cursor: pointer;
         }
-        .hidden {
-            display: none;
+
+        button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1><strong>CDI PROTOCOLO</strong></h1>
-    </div>
     <div class="container">
-        <div class="banner" id="bannerImage">
-            <!-- Espaço para o banner -->
-        </div>
-        <form id="uploadForm">
-            <div class="form-group">
-                <label for="name">Nome do Remetente:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="date">Data (dd/mm/aaaa):</label>
-                <input type="text" id="date" name="date" placeholder="dd/mm/aaaa" required>
-            </div>
-            <div class="form-group">
-                <label for="docType">Tipo de Documento:</label>
-                <select id="docType" name="docType" required>
-                    <option value="">Selecione</option>
-                    <option value="original">Original</option>
-                    <option value="copia">Cópia</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pages">Número de Páginas:</label>
-                <input type="number" id="pages" name="pages" required>
-            </div>
-            <div class="form-group">
-                <label for="observations">Observações:</label>
-                <textarea id="observations" name="observations" rows="4"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="file">Anexar Documento:</label>
-                <input type="file" id="file" name="file" required>
-            </div>
-            <div class="submit-btn">
-                <button type="submit">Enviar Documento</button>
-            </div>
+        <a href="https://drive.google.com/drive/folders/11Ei0RvcDBf_CnA2R81-58LaDkYLauZ5W" class="upload-button">
+            Faça o Upload Aqui
+        </a>
+
+        <form action="YOUR_SERVER_ENDPOINT" method="POST">
+            <label for="name">Nome Completo:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="document-type">Tipo de Documento:</label>
+            <input type="text" id="document-type" name="document-type" required>
+
+            <label for="description">Descrição:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <button type="submit">Enviar</button>
         </form>
-        <div id="status" class="status hidden">
-            <p>Status do Documento: <span id="documentStatus">Aguardando envio...</span></p>
-        </div>
     </div>
-
-    <script>
-        // Substitua o link abaixo pelo link da imagem do banner desejada
-        document.getElementById('bannerImage').style.backgroundImage = "url('https://github.com/cdiprojetos/cdi_protocolos/blob/main/Imagem1.jpg?raw=true')";
-
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Aqui você pode adicionar a lógica de envio do formulário e atualização de status
-            document.getElementById('status').classList.remove('hidden');
-            document.getElementById('documentStatus').textContent = 'Documento enviado e aguardando recebimento';
-            // Limpar campos após envio
-            document.getElementById('uploadForm').reset();
-        });
-    </script>
 </body>
 </html>
