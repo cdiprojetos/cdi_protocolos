@@ -9,194 +9,60 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #f4f4f4;
+            background: #ffffff;
             color: #333;
         }
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: #fff;
             padding: 20px;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #0044cc;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        .header {
+            background-color: #0044cc;
+            color: #ffffff;
+            padding: 20px 0;
+            border-radius: 10px 10px 0 0;
+        }
         h1 {
-            text-align: center;
-            color: #0044cc;
-            margin-bottom: 20px;
+            margin: 0;
+            font-size: 24px;
         }
         .banner {
             width: 100%;
             height: 200px;
-            background-image: url('https://github.com/cdiprojetos/cdi_protocolos/blob/main/Imagem1.jpg?raw=true');
-            background-size: cover;
-            background-position: center;
+            background-color: #ddd;
+            margin: 20px 0;
             border-radius: 10px;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .form-group textarea {
-            resize: vertical;
-        }
-        .submit-btn {
-            text-align: center;
-        }
-        .submit-btn button {
-            background-color: #0044cc;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .submit-btn button:hover {
-            background-color: #0033aa;
-        }
-        .status {
-            margin-top: 20px;
-            text-align: center;
+        .banner img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>CDI PROTOCOLO</h1>
-        <div class="banner"></div>
-        <form id="uploadForm">
-            <div class="form-group">
-                <label for="name">Nome do Remetente:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="date">Data (dd/mm/aaaa):</label>
-                <input type="text" id="date" name="date" placeholder="dd/mm/aaaa" required>
-            </div>
-            <div class="form-group">
-                <label for="docType">Tipo de Documento:</label>
-                <select id="docType" name="docType" required>
-                    <option value="">Selecione</option>
-                    <option value="original">Original</option>
-                    <option value="copia">Cópia</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pages">Número de Páginas:</label>
-                <input type="number" id="pages" name="pages" required>
-            </div>
-            <div class="form-group">
-                <label for="observations">Observações:</label>
-                <textarea id="observations" name="observations" rows="4"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="file">Anexar Documento:</label>
-                <input type="file" id="file" name="file" required>
-            </div>
-            <input type="hidden" id="directory" name="directory" value="YOUR_FOLDER_ID">
-            <div class="submit-btn">
-                <button type="submit">Enviar Documento</button>
-            </div>
-        </form>
-        <div id="status" class="status"></div>
+        <div class="header">
+            <h1><strong>CDI PROTOCOLO</strong></h1>
+        </div>
+        <div class="banner">
+            <img src="" alt="Banner Image" id="bannerImage">
+        </div>
+        <!-- Conteúdo adicional pode ser adicionado aqui -->
     </div>
-    <script src="https://apis.google.com/js/api.js"></script>
+
     <script>
-        const CLIENT_ID = 'YOUR_CLIENT_ID';
-        const API_KEY = 'YOUR_API_KEY';
-        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-        const SCOPES = "https://www.googleapis.com/auth/drive.file";
-
-        const uploadForm = document.getElementById('uploadForm');
-        const statusDiv = document.getElementById('status');
-
-        function handleClientLoad() {
-            gapi.load('client:auth2', initClient);
-        }
-
-        function initClient() {
-            gapi.client.init({
-                apiKey: API_KEY,
-                clientId: CLIENT_ID,
-                discoveryDocs: DISCOVERY_DOCS,
-                scope: SCOPES
-            }).then(() => {
-                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-            });
-        }
-
-        function updateSigninStatus(isSignedIn) {
-            if (!isSignedIn) {
-                gapi.auth2.getAuthInstance().signIn();
-            }
-        }
-
-        uploadForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const fileInput = document.getElementById('file');
-            const file = fileInput.files[0];
-            const name = document.getElementById('name').value;
-            const date = document.getElementById('date').value;
-            const docType = document.getElementById('docType').value;
-            const pages = document.getElementById('pages').value;
-            const observations = document.getElementById('observations').value;
-
-            if (file && name && date && docType && pages) {
-                try {
-                    await uploadFileToDrive(file, { name, date, docType, pages, observations });
-
-                    statusDiv.innerHTML = `
-                        <p>Documento "${file.name}" enviado com sucesso!</p>
-                        <p>Status: Aguardando recebimento...</p>
-                    `;
-
-                    uploadForm.reset();
-                } catch (error) {
-                    statusDiv.innerHTML = `<p>Erro ao enviar o documento. Tente novamente.</p>`;
-                }
-            } else {
-                alert('Por favor, preencha todos os campos obrigatórios e selecione um documento.');
-            }
-        });
-
-        async function uploadFileToDrive(file, formData) {
-            const metadata = {
-                name: file.name,
-                mimeType: file.type,
-                parents: [document.getElementById('directory').value], // ID da pasta
-                description: JSON.stringify(formData) // Adiciona informações adicionais como descrição
-            };
-
-            const form = new FormData();
-            form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
-            form.append('file', file);
-
-            return gapi.client.request({
-                path: '/upload/drive/v3/files',
-                method: 'POST',
-                params: { uploadType: 'multipart' },
-                headers: { 'Content-Type': 'multipart/related' },
-                body: form
-            });
-        }
-
-        handleClientLoad();
+        // Substitua o link abaixo pelo link da imagem do banner desejada
+        document.getElementById('bannerImage').src = "LINK_DA_IMAGEM_DO_BANNER";
     </script>
 </body>
 </html>
